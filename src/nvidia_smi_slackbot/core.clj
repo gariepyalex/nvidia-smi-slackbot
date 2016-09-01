@@ -20,9 +20,9 @@
 
 (defn slack-status-watch
   []
-  (nvidia-status-watch #(if %
-                          (slack/send-nvidia-busy-msg)
-                          (slack/send-nvidia-free-msg))))
+  (nvidia-status-watch #(if (empty? %)
+                          (slack/send-nvidia-free-msg)
+                          (slack/send-nvidia-busy-msg %))))
 
 
 (defn -main

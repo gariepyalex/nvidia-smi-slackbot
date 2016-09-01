@@ -25,8 +25,8 @@
   (->> xml
        (:content)
        ((fn [content]
-         {:pid    (->> content (find-first #(= :pid (:tag %))) :content)
-          :memory (->> content (find-first #(= :used_memory (:tag %))) :content)}))))
+         {:pid    (->> content (find-first #(= :pid (:tag %))) :content first)
+          :memory (->> content (find-first #(= :used_memory (:tag %))) :content first)}))))
 
 (defn- nvidia-xml-processes
   [xml-log]

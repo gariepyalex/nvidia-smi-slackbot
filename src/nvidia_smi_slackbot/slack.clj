@@ -9,8 +9,8 @@
 
 (defn format-process
   [{:keys [user pid memory]}]
-  {:title (str "Used by " user)
-   :value (format "PID %s, using %s GPU memory" pid memory)})
+  {:title (format "Used by \"%s\"" user)
+   :value (format "pid %s, using %s gpu memory." pid memory)})
 
 
 (defn busy-msg
