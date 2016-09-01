@@ -1,6 +1,6 @@
 # nvidia-smi-slackbot
 
-This slack bot is intended to be used on shared servers where Nvidia GPUs are used for scientific calculations and shared among many peoples. The bot will notify when the GPUs are being used, providing the name of the users, the memory used and the process PIDs.
+This slack bot is intended to be used on shared servers where Nvidia GPUs are shared among many people. The bot will notify you when the GPUs are being used, providing the name of the users, the memory used and the process PIDs.
 
 ## Usage
 
