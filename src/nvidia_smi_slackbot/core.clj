@@ -15,7 +15,7 @@
       (event-fn (<! c))
       (recur))
     (reset! nvidia-watch-chan c)
-    (reset! stop-nvidia-watch-chan (nvidia-status/run-process-check-job c))))
+    (reset! stop-nvidia-watch-chan (nvidia-status/run-process-check-job c 30))))
 
 
 (defn slack-status-watch

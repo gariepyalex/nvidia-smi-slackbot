@@ -1,0 +1,1 @@
+nohup lein run &
