@@ -7,18 +7,26 @@
 (def config (read-string (slurp (io/resource "config.clj"))))
 
 
-(def busy-msg
+(defn format-process
+  [{:keys [user pid memory]}]
+  {:title (str "Used by " user)
+   :value (format "PID %s, using %s GPU memory" pid memory)})
+
+
+(defn busy-msg
+  [processes]
   {:attachments [{:fallback "The server's GPU is curently BUSY"
                   :color    "danger"
-                  :fields   [{:title "Busy"
-                              :value "The is a task runnig on the GPU"}]}]})
+                  :fields   (apply vector {:title "Busy"
+                                           :value ""}
+                                   (map format-process processes))}]})
 
 
 (def free-msg
   {:attachments [{:fallback "The server's GPU is curently FREE"
                   :color    "good"
                   :fields   [{:title "Free"
-                              :value "The GPU is currently free"}]}]})
+                              :value "The GPU is currently free."}]}]})
 
 
 (defn- send-slack-msg
@@ -29,9 +37,10 @@
 
 (defn send-nvidia-free-msg
   []
-  (send-slack-msg busy-msg))
+  (send-slack-msg free-msg))
 
 
 (defn send-nvidia-busy-msg
-  []
-  (send-slack-msg free-msg))
+  [processes]
+  (print processes)
+  (send-slack-msg (busy-msg processes)))

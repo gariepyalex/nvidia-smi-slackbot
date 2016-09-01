@@ -7,5 +7,6 @@
                  [org.clojure/data.xml "0.0.8"]
                  [org.clojure/core.async "0.2.385"]
                  [http-kit "2.1.18"]
-                 [cheshire "5.6.3"]])
+                 [cheshire "5.6.3"]]
+  :main nvidia-smi-slackbot.core)
 

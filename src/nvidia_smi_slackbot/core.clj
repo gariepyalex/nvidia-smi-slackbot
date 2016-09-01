@@ -1,9 +1,12 @@
 (ns nvidia-smi-slackbot.core
+  (:gen-class)
   (:require [clojure.core.async :refer [chan go-loop <!]]
-            [nvidia-smi-slackbot.nvidia-status :as nvidia-status]))
+            [nvidia-smi-slackbot.nvidia-status :as nvidia-status]
+            [nvidia-smi-slackbot.slack :as slack]))
 
 (def nvidia-watch-chan (atom nil))
 (def stop-nvidia-watch-chan (atom nil))
+
 
 (defn nvidia-status-watch
   [event-fn]
@@ -14,3 +17,15 @@
     (reset! nvidia-watch-chan c)
     (reset! stop-nvidia-watch-chan (nvidia-status/run-process-check-job c))))
 
+
+(defn slack-status-watch
+  []
+  (nvidia-status-watch #(if %
+                          (slack/send-nvidia-busy-msg)
+                          (slack/send-nvidia-free-msg))))
+
+
+(defn -main
+  []
+  (println "Starting slack bot")
+  (slack-status-watch))
